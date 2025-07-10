@@ -1,13 +1,34 @@
 import React from 'react'
-import Navbar from './components/Navbar'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import Home from './components/Home'
+import Login from './components/Login'
+import Profile from './components/Profile'
 
 const App = () => {
   return (
-    <div className='text-4xl text-red-700'>
+    <>
 
-    <Navbar/>
+   <BrowserRouter basename='/'>   {/*   wher application base root point to,so all the routes inside is work related to this route */}
 
-    </div>
+<Routes> {/*wraper for diff routes */}
+
+      <Route path='/' element={<Home/>}>
+        <Route path='/login' element={<Login/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+
+
+      
+      </Route>
+
+
+    <Route path='/test' element={<div>fake  check</div>}/>
+
+
+</Routes>
+    </BrowserRouter>
+
+
+    </>
   )
 }
 
