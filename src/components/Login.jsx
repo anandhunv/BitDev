@@ -17,7 +17,7 @@ try {
   
          const res= await axios.post("http://localhost:5000/api/auth/login",{
           email:emailId,
-          password:password
+          password: password
          },{
         withCredentials:true
        })
