@@ -1,5 +1,9 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../utils/userSlice'
+import { useNavigate } from 'react-router'
+import { BASE_URL } from '../utils/constants'
 
 const Login = () => {
 
@@ -8,6 +12,8 @@ const Login = () => {
 
     const [emailId,setEmailId]=useState("")
     const [password,setPassword]=useState("")
+    const dispatch = useDispatch()
+    const navigate=useNavigate()
 
 
     const handleLoginButton=async()=>{
@@ -15,13 +21,16 @@ const Login = () => {
         //api call to login function using axios
 try {
   
-         const res= await axios.post("http://localhost:5000/api/auth/login",{
+         const res= await axios.post(`${BASE_URL}/api/auth/login`,{
           email:emailId,
           password: password
          },{
         withCredentials:true
        })
              console.log("Login success:", res.data); // { token: "QpwL5tke4Pnpja7X4" }
+             dispatch(addUser(res.data))
+             navigate("/profile")
+
 
 } catch (error) {
 

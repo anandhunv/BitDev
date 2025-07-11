@@ -97,3 +97,66 @@ if dont pass authenticaton will fail
 so first setup credential on backend and withcredentail on frontend  while making an api call now everything work smoothly
 
 now tokens set in  cookies
+
+
+========================================
+
+install reudx/toolkit and react-redux
+
+create a store appstore.js under utils folder
+provide the store in app.jsx using provider from "react-redux" and add store to whole application
+
+create slice, userslice using "createSLice" and add configirtaion  using name , initioal state and reducers
+
+at reducers  add methods  "adduser" "removeuser"  using state, action payload and export the user slice and actions
+
+add userslice to appstore and add it into reducer 
+
+*configureStore =>
+*Provider =>
+*createSlice =>
+*add reducer to store
+
+redux store is setuped
+
+========================================================
+
+noe next add when we do login the data details will goto redux store,how?
+
+we use a hook=> useDispatch from react-redux
+    const dispatch = useDispatch()
+inside login function when user logged inand get response wee add that response to dispatch, 
+for that we dispatch an action , wht action => "adduser" action from userlice
+
+             dispatch(addUser(res.data))
+
+dispatch an action and pass the data and it will stored in redux store
+
+=======================
+
+how to subscribe to the store???  to take the data from the store and use the data
+
+
+we use hook=> "useSelector()" from react-redux
+
+  const user= useSelector((store)=>store.user)
+
+  sowe  get data from the user store we can use that
+
+
+======================================
+
+const res= await axios.post("http://localhost:5000/api/auth/login",{})
+
+
+can we hardcoded the url not like this ..always create a constant.js and do it.
+
+export const BASE_URL="http://localhost:5000"
+
+axios.post(`${BASE_URL}/api/auth/login`)
+
+
+
+
+
+
