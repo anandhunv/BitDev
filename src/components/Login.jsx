@@ -12,6 +12,7 @@ const Login = () => {
 
     const [emailId,setEmailId]=useState("")
     const [password,setPassword]=useState("")
+    const [error,setError]=useState("")
     const dispatch = useDispatch()
     const navigate=useNavigate()
 
@@ -35,14 +36,15 @@ try {
 } catch (error) {
 
   console.log(error)
-  
+  const message = error.response?.data?.message || error.message || "Login failed";
+  setError(message); // ✅ Only a string here  
 }
 
 
     }
 
   return (
-    <div className='flex justify-center items-center bg-amber-200 '>
+    <div className='flex justify-center items-center  '>
 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 flex flex-col   justify-center">
   <legend className="fieldset-legend">Login</legend>
 
@@ -61,6 +63,7 @@ try {
    value={password}
    onChange={(e)=>setPassword(e.target.value)}/>
 
+{error && <p className="text-red-500 mt-2">{error}</p>}
   <button onClick={handleLoginButton} className="btn btn-neutral mt-4">Login</button>
 </fieldset> 
     </div>

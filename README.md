@@ -157,6 +157,65 @@ axios.post(`${BASE_URL}/api/auth/login`)
 
 
 
+===============================================================================================================
+
+when refresh the user logged out
+
+but the access token and refresh token still there in the cookies
+
+
+ 
+  const dispatch=useDispatch()
+
+// fetch the profile of the user
+
+  const fetchUser=async()=>{
+
+    // update the store
+try {
+      const  res =await axios.get(`${BASE_URL}/api/auth/profile`,{withCredentials:true})
+
+      dispatch(addUser(res.data))
+      
+
+  
+} catch (error) {
+
+  console.log(error)
+  
+}
+  }
+
+  //now fetchuser fetch the user , fetch the user when the component is loaded , so how we do that , use useEffect, when component is loaded useEffwct will called , there we fetch the user
+
+  useEffect(()=>{
+    fetchUser()
+  },[])
 
 
 
+
+=========================
+api call is made twice bcs of strict mode in production it wil not twice but in dev mode it will twice , bcs react check the api call is work perfectly  
+
+========
+
+once we login we cant make the api call again and again,, once data in redux store , we cant the make the api cll again aigan
+
+so to handle that case , check the user store in home
+
+const userData=useSelector((store)=>store.user)
+
+if userdata dont need to fetch so,
+
+  useEffect(()=>{
+    if(!userData){
+    fetchUser()
+
+    }
+  },[])
+===========================================
+
+logout
+
+just dispatch action removeUser with the logout endpoint
