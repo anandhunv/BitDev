@@ -1,9 +1,61 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 
 const Login = () => {
+
+
+
+
+    const [emailId,setEmailId]=useState("")
+    const [password,setPassword]=useState("")
+
+
+    const handleLoginButton=async()=>{
+
+        //api call to login function using axios
+try {
+  
+         const res= await axios.post("http://localhost:5000/api/auth/login",{
+          email:emailId,
+          password:password
+         },{
+        withCredentials:true
+       })
+             console.log("Login success:", res.data); // { token: "QpwL5tke4Pnpja7X4" }
+
+} catch (error) {
+
+  console.log(error)
+  
+}
+
+
+    }
+
   return (
-    <div className=' text-red-800'>Login</div>
-  )
+    <div className='flex justify-center items-center bg-amber-200 '>
+<fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 flex flex-col   justify-center">
+  <legend className="fieldset-legend">Login</legend>
+
+  <label className="label">Email:{emailId}</label>
+  <input type="email"
+   className="input focus:outline-none "
+   placeholder="Email"
+   value={emailId}
+   onChange={(e)=> setEmailId(e.target.value)} />
+
+  <label className="label">Password</label>
+  <input type="password" 
+  className="input focus:outline-none"
+   placeholder="Password"
+   
+   value={password}
+   onChange={(e)=>setPassword(e.target.value)}/>
+
+  <button onClick={handleLoginButton} className="btn btn-neutral mt-4">Login</button>
+</fieldset> 
+    </div>
+ )
 }
 
 export default Login

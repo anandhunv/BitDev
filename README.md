@@ -44,3 +44,56 @@ so the code says that these are the children routes(login and profile)  amd the 
 so in body(home)  component create an outlet from react router
 
 this is concept of creating childrens route and outlet
+
+
+
+======================================================================================
+
+
+create login page , email password name
+
+
+use usestate for email and password (binding state variable to your ui component)
+ and onchange to change the input values 
+
+when handleLOginbutton click , we do a network call so make it async
+
+install axios to api call 
+        //api call to login function using axios
+
+ axios.post("http://localhost:7777/login",{
+        emailId,password
+       })
+
+       when we try this,axios is try to make a api call  and we have awaited for the result so we use await there and get result in variable
+
+
+       const res= await axios.post("http://localhost:7777/login",{
+        emailId,password
+       },{
+        withCredentials:true
+       })
+
+       try wrap these code in try-catch block whnen make an api call
+
+======================================
+cors error
+
+try to make api call from x domain to y domain then its give a cors error(crossorigin), cannot make an api call from different origin to different origin => 
+                                      namste dev.com to namstedev.com =its okay nor error 
+cors error are at browser level,for securoty reasons brownsers not alllowed cors request
+
+how to handle this case, also at backend server??? 
+
+at backend install cors = npm i cors and use it as a middleware, add middleware to with configurations: origin, credentials:true
+
+app.use(cors({origin: 'http://frontend url',credentials:true }))
+
+but when we do these we not get tokens in  cookies  ,so to get that pass "withcredentials:true" with axios.post in frontend.
+whenever making an api call so pass {withcredentials:true}
+
+if dont pass authenticaton will fail
+
+so first setup credential on backend and withcredentail on frontend  while making an api call now everything work smoothly
+
+now tokens set in  cookies
